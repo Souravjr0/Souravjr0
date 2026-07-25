@@ -23,9 +23,19 @@ export function useSectionReveal(selector = '.section-container') {
           }
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      { threshold: 0.01, rootMargin: '50px 0px 50px 0px' }
     )
+
     els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+
+    // Fail-safe fallback: guarantee all sections are visible within 500ms
+    const fallbackTimer = setTimeout(() => {
+      els.forEach((el) => el.classList.add('in-view'))
+    }, 500)
+
+    return () => {
+      clearTimeout(fallbackTimer)
+      io.disconnect()
+    }
   }, [selector])
 }

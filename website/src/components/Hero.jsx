@@ -1,9 +1,26 @@
-import { useEffect, useRef, useState, Suspense, lazy } from 'react'
+import React, { useEffect, useRef, useState, Suspense, lazy, Component } from 'react'
 import { animate } from 'animejs'
 import { HERO_BADGES } from '../data/portfolio'
 import { useMagneticEffect } from '../hooks/useMagneticEffect'
 import { useIsTouchDevice } from '../hooks/useAnimev4'
 import { EASE, DUR } from '../motion'
+
+class CanvasErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+  componentDidCatch(err) {
+    console.warn('Canvas Error (bypassed for reliability):', err)
+  }
+  render() {
+    if (this.state.hasError) return null
+    return this.props.children
+  }
+}
 
 // Three.js is ~690KB — load it after first paint so the hero copy is readable immediately.
 const HeroScene = lazy(() => import('./three/HeroScene'))
@@ -156,9 +173,11 @@ export default function Hero({ introActive = false }) {
   return (
     <section id="hero" className="hero-section" ref={heroRef}>
       <div className="hero-canvas-container">
-        <Suspense fallback={null}>
-          <HeroScene />
-        </Suspense>
+        <CanvasErrorBoundary>
+          <Suspense fallback={null}>
+            <HeroScene />
+          </Suspense>
+        </CanvasErrorBoundary>
       </div>
 
       <div className="hero-inner">
