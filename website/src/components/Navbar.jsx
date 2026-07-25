@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { NAV_LINKS } from '../data/portfolio'
 
-export default function Navbar({ scrollTo, onOpenCmdPalette }) {
+export default function Navbar({ scrollTo, onOpenCmdPalette, theme = 'light', onToggleTheme }) {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -113,6 +113,27 @@ export default function Navbar({ scrollTo, onOpenCmdPalette }) {
           })}
 
           <button
+            onClick={onToggleTheme}
+            className="theme-toggle-btn"
+            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '99px',
+              border: '1px solid var(--border)',
+              background: 'rgba(255, 255, 255, 0.05)',
+              color: 'var(--text)',
+              fontSize: '0.85rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+          </button>
+
+          <button
             onClick={onOpenCmdPalette}
             className="cmd-trigger-btn"
             title="Open Command Palette (⌘K)"
@@ -154,16 +175,25 @@ export default function Navbar({ scrollTo, onOpenCmdPalette }) {
                 {link.label}
               </a>
             ))}
-            <button
-              onClick={() => {
-                setMobileOpen(false)
-                onOpenCmdPalette()
-              }}
-              className="btn btn-primary"
-              style={{ marginTop: '20px' }}
-            >
-              Command Palette (⌘K)
-            </button>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+              <button
+                onClick={onToggleTheme}
+                className="btn btn-outline"
+                style={{ flex: 1 }}
+              >
+                {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+              </button>
+              <button
+                onClick={() => {
+                  setMobileOpen(false)
+                  onOpenCmdPalette()
+                }}
+                className="btn btn-primary"
+                style={{ flex: 1 }}
+              >
+                Command (⌘K)
+              </button>
+            </div>
           </div>
         </div>
       )}

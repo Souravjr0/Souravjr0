@@ -28,9 +28,19 @@ export default function App() {
   const [cmdPaletteOpen, setCmdPaletteOpen] = useState(false)
   const [neuralMapOpen, setNeuralMapOpen] = useState(false)
   const [surgeMode, setSurgeMode] = useState(false)
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light')
   const { scrollTo } = useLenisScroll()
 
   useSectionReveal()
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
+  }
 
   // Konami Code Easter Egg (↑ ↑ ↓ ↓ ← → ← → b a)
   useEffect(() => {
@@ -75,6 +85,8 @@ export default function App() {
       <Navbar
         scrollTo={scrollTo}
         onOpenCmdPalette={() => setCmdPaletteOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
       <BackgroundShapes />
       <main>
