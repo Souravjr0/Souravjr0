@@ -8,6 +8,9 @@ export default function AnimationViewfinder() {
   const [speed, setSpeed] = useState(1)
   const [showCode, setShowCode] = useState(false)
   const canvasContainerRef = useRef(null)
+  
+  // Keep track of any manually triggered animations (like replay click)
+  const manualAnimsRef = useRef([])
 
   const presets = [
     { id: 'grid-ripple', label: 'Grid Ripple Stagger', icon: '🌐' },
@@ -64,23 +67,59 @@ animate('.spring-tracer', {
 });`,
   }
 
-  // Preset 1: Grid Ripple Animation
+  // Preset 1: Grid Ripple Animation (Manual trigger)
   const triggerGridRipple = () => {
-    animate('.viewfinder-grid-dot', {
+    const anim = animate('.viewfinder-grid-dot', {
       scale: [1, 2.2, 1],
       opacity: [0.3, 1, 0.3],
       delay: stagger(40, { from: 'center', grid: [8, 8] }),
       duration: 1200 / speed,
       ease: 'inOutSine',
     })
+    manualAnimsRef.current.push(anim)
   }
 
   // Trigger preset animation on change or play
   useEffect(() => {
-    if (!isPlaying) return
+    let animations = []
+    
+    // Intersection Observer setup to pause/play based on visibility
+    const el = canvasContainerRef.current
+    if (!el) return
+    
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) {
+         animations.forEach(a => { if (a.pause) a.pause() })
+         manualAnimsRef.current.forEach(a => { if (a.pause) a.pause() })
+      } else {
+         if (isPlaying) {
+             animations.forEach(a => { if (a.play) a.play() })
+             manualAnimsRef.current.forEach(a => { if (a.play) a.play() })
+         }
+      }
+    }, { threshold: 0.1 })
+    
+    io.observe(el)
+
+    if (!isPlaying) {
+       animations.forEach(a => { if (a.pause) a.pause() })
+       manualAnimsRef.current.forEach(a => { if (a.pause) a.pause() })
+       return () => {
+         io.disconnect()
+         animations.forEach(a => {
+           if(a.revert) a.revert()
+         })
+       }
+    }
 
     if (activePreset === 'grid-ripple') {
-      triggerGridRipple()
+      animations.push(animate('.viewfinder-grid-dot', {
+        scale: [1, 2.2, 1],
+        opacity: [0.3, 1, 0.3],
+        delay: stagger(40, { from: 'center', grid: [8, 8] }),
+        duration: 1200 / speed,
+        ease: 'inOutSine',
+      }))
     } else if (activePreset === 'shape-morph') {
       const paths = canvasContainerRef.current?.querySelectorAll('path')
       if (paths) {
@@ -88,16 +127,16 @@ animate('.spring-tracer', {
           const len = p.getTotalLength ? p.getTotalLength() : 300
           p.style.strokeDasharray = len
           p.style.strokeDashoffset = len
-          animate(p, {
+          animations.push(animate(p, {
             strokeDashoffset: [len, 0],
             duration: 1600 / speed,
             delay: idx * 250,
             ease: 'inOutExpo',
-          })
+          }))
         })
       }
     } else if (activePreset === 'kinetic-burst') {
-      animate('.burst-item', {
+      animations.push(animate('.burst-item', {
         translateX: () => (Math.random() - 0.5) * 220,
         translateY: () => (Math.random() - 0.5) * 220,
         scale: [0.2, 1.4, 0.8],
@@ -105,22 +144,34 @@ animate('.spring-tracer', {
         delay: stagger(25),
         duration: 1100 / speed,
         ease: 'outElastic(1, .5)',
-      })
+      }))
     } else if (activePreset === 'vortex-orbit') {
-      animate('.vortex-orbit-ring', {
+      animations.push(animate('.vortex-orbit-ring', {
         rotateZ: [0, 360],
         duration: 4000 / speed,
         ease: 'linear',
-      })
+      }))
     } else if (activePreset === 'spring-path') {
-      animate('.spring-node', {
+      animations.push(animate('.spring-node', {
         translateY: [-60, 60, -60],
         translateX: [-80, 80, -80],
         scale: [0.8, 1.5, 0.8],
         delay: stagger(100),
         duration: 2000 / speed,
         ease: 'outElastic(1, .6)',
+      }))
+    }
+    
+    return () => {
+      io.disconnect()
+      animations.forEach(a => {
+        if(a.revert) a.revert()
       })
+      // Clear manual animations from this cycle too
+      manualAnimsRef.current.forEach(a => {
+        if(a.revert) a.revert()
+      })
+      manualAnimsRef.current = []
     }
   }, [activePreset, isPlaying, speed])
 

@@ -54,18 +54,37 @@ function MagneticStatCard({ badge }) {
 }
 
 export default function Hero({ introActive = false }) {
-  const [fpsText, setFpsText] = useState('SIGNAL: STABLE // 60 FPS')
+  const fpsTextRef = useRef(null)
   const heroRef = useRef(null)
   const entrancePlayed = useRef(false)
+  const animations = useRef([])
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false
+
+    const update = () => {
+      ticking = false
+      if (!fpsTextRef.current) return
+      
       const scrollY = window.scrollY
-      if (scrollY < 100) setFpsText('SIGNAL: STABLE // 60 FPS')
-      else if (scrollY < 600) setFpsText('SIGNAL: PROCESSING // 60 FPS')
-      else setFpsText('SIGNAL: DEEP INGEST // 60 FPS')
+      let text = 'SIGNAL: STABLE // 60 FPS'
+      if (scrollY >= 100 && scrollY < 600) text = 'SIGNAL: PROCESSING // 60 FPS'
+      else if (scrollY >= 600) text = 'SIGNAL: DEEP INGEST // 60 FPS'
+      
+      if (fpsTextRef.current.textContent !== `[${text}]`) {
+         fpsTextRef.current.textContent = `[${text}]`
+      }
     }
+
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(update)
+      }
+    }
+    
     window.addEventListener('scroll', handleScroll, { passive: true })
+    update()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -76,49 +95,62 @@ export default function Hero({ introActive = false }) {
     if (prefersReduced) return
     entrancePlayed.current = true
 
-    // Step 1: eyebrow (availability badge)
-    animate('.hero-eyebrow', {
-      opacity: [0, 1],
-      translateY: [12, 0],
-      duration: DUR.base,
-      ease: EASE.out,
-    })
+    // Store animation handles
+    animations.current = [
+      // Step 1: eyebrow (availability badge)
+      animate('.hero-eyebrow', {
+        opacity: [0, 1],
+        translateY: [12, 0],
+        duration: DUR.base,
+        ease: EASE.out,
+      }),
 
-    // Step 2: title resolves with stagger
-    animate('.hero-title-wrapper', {
-      opacity: [0, 1],
-      translateY: [20, 0],
-      duration: DUR.base,
-      delay: 120,
-      ease: EASE.out,
-    })
+      // Step 2: title resolves with stagger
+      animate('.hero-title-wrapper', {
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: DUR.base,
+        delay: 120,
+        ease: EASE.out,
+      }),
 
-    // Step 3: description
-    animate('.hero-desc', {
-      opacity: [0, 1],
-      translateY: [16, 0],
-      duration: DUR.base,
-      delay: 260,
-      ease: EASE.out,
-    })
+      // Step 3: description
+      animate('.hero-desc', {
+        opacity: [0, 1],
+        translateY: [16, 0],
+        duration: DUR.base,
+        delay: 260,
+        ease: EASE.out,
+      }),
 
-    // Step 4: CTA buttons
-    animate('.hero-actions', {
-      opacity: [0, 1],
-      translateY: [16, 0],
-      duration: DUR.base,
-      delay: 400,
-      ease: EASE.out,
-    })
+      // Step 4: CTA buttons
+      animate('.hero-actions', {
+        opacity: [0, 1],
+        translateY: [16, 0],
+        duration: DUR.base,
+        delay: 400,
+        ease: EASE.out,
+      }),
 
-    // Step 5: credential cards with spring physics
-    animate('.hero-badges-grid', {
-      opacity: [0, 1],
-      translateY: [20, 0],
-      duration: 800,
-      delay: 550,
-      ease: EASE.out,
-    })
+      // Step 5: credential cards with spring physics
+      animate('.hero-badges-grid', {
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 800,
+        delay: 550,
+        ease: EASE.out,
+      })
+    ]
+
+    return () => {
+      // Cleanup anime.js animations
+      animations.current.forEach(anim => {
+        if (anim && typeof anim.revert === 'function') {
+          anim.revert()
+        }
+      })
+      animations.current = []
+    }
   }, [introActive])
 
   return (
@@ -133,8 +165,11 @@ export default function Hero({ introActive = false }) {
         <div className="hero-eyebrow">
           <span className="status-dot" />
           <span>Available for projects — Pune, India</span>
-          <span style={{ marginLeft: '10px', color: 'var(--signal-pink)', fontFamily: 'var(--mono)', fontSize: '0.7rem', opacity: 0.7 }}>
-            [{fpsText}]
+          <span 
+            ref={fpsTextRef}
+            style={{ marginLeft: '10px', color: 'var(--signal-pink)', fontFamily: 'var(--mono)', fontSize: '0.7rem', opacity: 0.7 }}
+          >
+            [SIGNAL: STABLE // 60 FPS]
           </span>
         </div>
 

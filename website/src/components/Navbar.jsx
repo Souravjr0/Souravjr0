@@ -5,9 +5,10 @@ export default function Navbar({ scrollTo, onOpenCmdPalette }) {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrollPercent, setScrollPercent] = useState(0)
   const [glide, setGlide] = useState({ left: 0, width: 0, visible: false })
+  
   const navListRef = useRef(null)
+  const scrollBeamRef = useRef(null)
 
   // Gliding active indicator: measure the active link, let CSS transition the pill
   useEffect(() => {
@@ -28,17 +29,25 @@ export default function Navbar({ scrollTo, onOpenCmdPalette }) {
 
   useEffect(() => {
     let ticking = false
+    let currentScrolled = false
+    let currentActive = 'hero'
 
-    // rAF-batched: layout reads (scrollHeight, getBoundingClientRect) and the
-    // state updates run once per frame, not once per scroll event.
     const update = () => {
       ticking = false
       const scrollY = window.scrollY
-      setScrolled(scrollY > 40)
+      
+      const isScrolled = scrollY > 40
+      if (isScrolled !== currentScrolled) {
+        currentScrolled = isScrolled
+        setScrolled(isScrolled)
+      }
 
       const winHeight = document.documentElement.scrollHeight - window.innerHeight
       if (winHeight > 0) {
-        setScrollPercent(Math.min(100, Math.max(0, (scrollY / winHeight) * 100)))
+        const pct = Math.min(100, Math.max(0, (scrollY / winHeight) * 100))
+        if (scrollBeamRef.current) {
+          scrollBeamRef.current.style.width = `${pct}%`
+        }
       }
 
       // Section tracking
@@ -48,7 +57,10 @@ export default function Navbar({ scrollTo, onOpenCmdPalette }) {
         if (el) {
           const rect = el.getBoundingClientRect()
           if (rect.top <= 250) {
-            setActiveSection(sections[i])
+            if (sections[i] !== currentActive) {
+              currentActive = sections[i]
+              setActiveSection(sections[i])
+            }
             break
           }
         }
@@ -118,7 +130,7 @@ export default function Navbar({ scrollTo, onOpenCmdPalette }) {
         </button>
 
         {/* Scroll progress beam running inside navbar */}
-        <div className="nav-progress-beam" style={{ width: `${scrollPercent}%` }} />
+        <div ref={scrollBeamRef} className="nav-progress-beam" style={{ width: '0%' }} />
       </div>
 
       {/* Mobile full-screen menu overlay */}

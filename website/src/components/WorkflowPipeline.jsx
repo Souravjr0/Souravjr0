@@ -13,6 +13,7 @@ export default function WorkflowPipeline() {
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
+    let lineAnim, cardsAnim, packetAnim;
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -24,7 +25,7 @@ export default function WorkflowPipeline() {
           const len = line.getTotalLength()
           line.style.strokeDasharray = len
           line.style.strokeDashoffset = len
-          animate(line, {
+          lineAnim = animate(line, {
             strokeDashoffset: [len, 0],
             duration: 1200,
             ease: EASE.out,
@@ -32,7 +33,7 @@ export default function WorkflowPipeline() {
         }
 
         // Sequential step activation
-        animate('.pipeline-card', {
+        cardsAnim = animate('.pipeline-card', {
           opacity: [0.3, 1],
           translateY: [16, 0],
           duration: DUR.base,
@@ -43,7 +44,7 @@ export default function WorkflowPipeline() {
         // Data packets travelling along the connector line
         if (!packetsSent.current && dataPacketRef.current) {
           packetsSent.current = true
-          animate('.pipeline-data-packet', {
+          packetAnim = animate('.pipeline-data-packet', {
             left: ['0%', '100%'],
             opacity: [0, 1, 1, 0],
             duration: 3000,
@@ -58,7 +59,13 @@ export default function WorkflowPipeline() {
       { threshold: 0.25 }
     )
     io.observe(el)
-    return () => io.disconnect()
+    
+    return () => {
+      io.disconnect()
+      if (lineAnim && lineAnim.revert) lineAnim.revert()
+      if (cardsAnim && cardsAnim.revert) cardsAnim.revert()
+      if (packetAnim && packetAnim.revert) packetAnim.revert()
+    }
   }, [])
 
   return (

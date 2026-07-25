@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { animate, stagger } from 'animejs'
 import { usePrefersReducedMotion } from '../hooks/useAnimev4'
 import { EASE, DUR } from '../motion'
 
 export default function IntroAnimation({ onComplete }) {
-  const [percent, setPercent] = useState(0)
-  const [statusText, setStatusText] = useState('INITIALIZING NEURAL FIELD')
   const reducedMotion = usePrefersReducedMotion()
   const svgRef = useRef(null)
+  const percentRef = useRef(null)
+  const subtitleRef = useRef(null)
+  const fillRef = useRef(null)
 
   useEffect(() => {
     if (reducedMotion) {
@@ -15,7 +16,8 @@ export default function IntroAnimation({ onComplete }) {
       return
     }
 
-    // 1. Asset & Module verification simulation
+    const animations = []
+
     const statusLogs = [
       'INITIALIZING NEURAL FIELD',
       'LOADING EXPERIENCE MODULES',
@@ -25,20 +27,22 @@ export default function IntroAnimation({ onComplete }) {
     ]
 
     const counter = { val: 0 }
-    animate(counter, {
+    const counterAnim = animate(counter, {
       val: 100,
       round: 1,
       duration: 1800,
       ease: EASE.inOut,
       onUpdate: () => {
         const val = Math.round(counter.val)
-        setPercent(val)
+        if (percentRef.current) percentRef.current.textContent = val + '%'
+        if (fillRef.current) fillRef.current.style.width = val + '%'
+        
         const idx = Math.min(Math.floor((val / 100) * statusLogs.length), statusLogs.length - 1)
-        setStatusText(statusLogs[idx])
+        if (subtitleRef.current) subtitleRef.current.textContent = statusLogs[idx]
       },
     })
+    animations.push(counterAnim)
 
-    // 2. SVG path drawing animation
     const paths = svgRef.current?.querySelectorAll('path')
     if (paths && paths.length > 0) {
       paths.forEach((path) => {
@@ -49,28 +53,28 @@ export default function IntroAnimation({ onComplete }) {
 
       paths.forEach((path, i) => {
         const len = path.getTotalLength()
-        animate(path, {
+        const pathAnim = animate(path, {
           strokeDashoffset: [len, 0],
           duration: DUR.slow,
           ease: EASE.inOut,
           delay: i * 180,
         })
+        animations.push(pathAnim)
       })
     }
 
-    // 3. Kinetic blur-to-sharp text reveal
-    animate('.intro-char', {
+    const charAnim = animate('.intro-char', {
       translateY: [40, 0],
       opacity: [0, 1],
-      filter: ['blur(12px)', 'blur(0px)'],
+      filter: ['blur(6px)', 'blur(0px)'],
       duration: DUR.base,
       delay: stagger(40, { start: 150 }),
       ease: EASE.out,
     })
+    animations.push(charAnim)
 
-    // 4. Curtain exit transition
     const timer = setTimeout(() => {
-      animate('.intro-curtain', {
+      const curtainAnim = animate('.intro-curtain', {
         translateY: ['0%', '-100%'],
         duration: DUR.base,
         delay: stagger(70),
@@ -79,9 +83,17 @@ export default function IntroAnimation({ onComplete }) {
           if (onComplete) onComplete()
         },
       })
+      animations.push(curtainAnim)
     }, 2200)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      animations.forEach(anim => {
+        if (anim && typeof anim.revert === 'function') {
+          anim.revert()
+        }
+      })
+    }
   }, [onComplete, reducedMotion])
 
   if (reducedMotion) return null
@@ -97,31 +109,10 @@ export default function IntroAnimation({ onComplete }) {
       </div>
 
       <div className="intro-content">
-        <svg
-          ref={svgRef}
-          width="110"
-          height="110"
-          viewBox="0 0 100 100"
-          className="intro-svg"
-        >
-          <path
-            d="M 50,10 L 90,30 L 90,70 L 50,90 L 10,70 L 10,30 Z"
-            fill="none"
-            stroke="#FF3B73"
-            strokeWidth="3"
-          />
-          <path
-            d="M 50,25 L 75,38 L 75,62 L 50,75 L 25,62 L 25,38 Z"
-            fill="none"
-            stroke="#5BE7E7"
-            strokeWidth="2"
-          />
-          <path
-            d="M 50,40 L 60,46 L 60,54 L 50,60 L 40,54 L 40,46 Z"
-            fill="none"
-            stroke="#FFD166"
-            strokeWidth="2"
-          />
+        <svg ref={svgRef} width="110" height="110" viewBox="0 0 100 100" className="intro-svg">
+          <path d="M 50,10 L 90,30 L 90,70 L 50,90 L 10,70 L 10,30 Z" fill="none" stroke="#FF3B73" strokeWidth="3" />
+          <path d="M 50,25 L 75,38 L 75,62 L 50,75 L 25,62 L 25,38 Z" fill="none" stroke="#5BE7E7" strokeWidth="2" />
+          <path d="M 50,40 L 60,46 L 60,54 L 50,60 L 40,54 L 40,46 Z" fill="none" stroke="#FFD166" strokeWidth="2" />
         </svg>
 
         <div className="intro-title">
@@ -132,13 +123,13 @@ export default function IntroAnimation({ onComplete }) {
           ))}
         </div>
 
-        <div className="intro-subtitle">{statusText}</div>
+        <div ref={subtitleRef} className="intro-subtitle">INITIALIZING NEURAL FIELD</div>
 
         <div className="intro-progress-bar">
-          <div className="intro-progress-fill" style={{ width: `${percent}%` }} />
+          <div ref={fillRef} className="intro-progress-fill" style={{ width: '0%' }} />
         </div>
 
-        <div className="intro-percent">{percent}%</div>
+        <div ref={percentRef} className="intro-percent">0%</div>
       </div>
     </div>
   )

@@ -76,6 +76,15 @@ function NeuralConstellation({ count = 160, maxDist = 1.4, visibleRef }) {
     depthWrite: false,
   }), [])
 
+  useEffect(() => {
+    return () => {
+      positions.dispose()
+      material.dispose()
+      lineGeo.dispose()
+      lineMat.dispose()
+    }
+  }, [positions, material, lineGeo, lineMat])
+
   useFrame(({ clock, pointer }) => {
     // Skip all work when the hero is off-screen or motion is reduced.
     if (reduced || (visibleRef && !visibleRef.current)) return

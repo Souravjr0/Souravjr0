@@ -43,25 +43,23 @@ function PulseMetricCard({ metric, index }) {
   useEffect(() => {
     const el = cardRef.current
     if (!el) return
+    let counterAnim, entranceAnim, pulseAnim;
+
     const io = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return
 
-      // Counter animation
+      // Counter animation (direct textContent update via anime.js innerHTML property)
       if (numRef.current) {
-        const counter = { val: 0 }
-        animate(counter, {
-          val: metric.value,
+        counterAnim = animate(numRef.current, {
+          innerHTML: [0, metric.value],
           round: 1,
           duration: DUR.slow + 300,
           ease: EASE.out,
-          onUpdate: () => {
-            if (numRef.current) numRef.current.textContent = Math.round(counter.val)
-          },
         })
       }
 
       // Card entrance
-      animate(el, {
+      entranceAnim = animate(el, {
         opacity: [0, 1],
         translateY: [30, 0],
         duration: DUR.base,
@@ -71,7 +69,7 @@ function PulseMetricCard({ metric, index }) {
 
       // Pulse ring on the dot
       if (pulseRef.current) {
-        animate(pulseRef.current, {
+        pulseAnim = animate(pulseRef.current, {
           scale: [1, 2.5, 1],
           opacity: [0.6, 0, 0.6],
           duration: 2000,
@@ -82,8 +80,15 @@ function PulseMetricCard({ metric, index }) {
 
       io.unobserve(el)
     }, { threshold: 0.2 })
+    
     io.observe(el)
-    return () => io.disconnect()
+    
+    return () => {
+      io.disconnect()
+      if (counterAnim && counterAnim.revert) counterAnim.revert()
+      if (entranceAnim && entranceAnim.revert) entranceAnim.revert()
+      if (pulseAnim && pulseAnim.revert) pulseAnim.revert()
+    }
   }, [metric.value, index])
 
   return (
@@ -113,10 +118,12 @@ function BarChart() {
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
+    let chartAnim;
+
     const io = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return
 
-      animate(barsRef.current, {
+      chartAnim = animate(barsRef.current, {
         width: (el) => `${el.dataset.target}%`,
         duration: DUR.slow,
         delay: stagger(80),
@@ -125,8 +132,13 @@ function BarChart() {
 
       io.unobserve(el)
     }, { threshold: 0.2 })
+    
     io.observe(el)
-    return () => io.disconnect()
+    
+    return () => {
+      io.disconnect()
+      if (chartAnim && chartAnim.revert) chartAnim.revert()
+    }
   }, [])
 
   return (
@@ -185,34 +197,43 @@ function LineChart() {
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
+    let pathAnim, labelAnim;
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
-        const scrollPct = Math.min(1, Math.max(0, (1 - entry.boundingClientRect.top / window.innerHeight) * 2))
 
         if (pathRef.current) {
           const len = pathRef.current.getTotalLength()
-          animate(pathRef.current, {
+          pathAnim = animate(pathRef.current, {
             strokeDashoffset: [len, 0],
             duration: DUR.slow + 400,
             ease: EASE.out,
           })
         }
 
-        // Animate progress label
-        animate('.line-chart-progress-val', {
-          innerText: [0, 92],
-          round: 1,
-          duration: DUR.slow + 400,
-          ease: EASE.out,
-        })
+        // Animate progress label (using DOM nodes for innerHTML to avoid loop overhead)
+        const valNode = document.querySelector('.line-chart-progress-val')
+        if (valNode) {
+          labelAnim = animate(valNode, {
+            innerHTML: [0, 92],
+            round: 1,
+            duration: DUR.slow + 400,
+            ease: EASE.out,
+          })
+        }
 
         io.unobserve(el)
       },
       { threshold: 0.1 }
     )
     io.observe(el)
-    return () => io.disconnect()
+    
+    return () => {
+      io.disconnect()
+      if (pathAnim && pathAnim.revert) pathAnim.revert()
+      if (labelAnim && labelAnim.revert) labelAnim.revert()
+    }
   }, [])
 
   return (
@@ -336,10 +357,13 @@ function DonutRow() {
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
+    let dashAnim, dotAnim;
+
     const io = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return
+      
       const svgs = el.querySelectorAll('.data-donut-fill')
-      animate(svgs, {
+      dashAnim = animate(svgs, {
         strokeDashoffset: (el) => {
           const total = 2 * Math.PI * 32
           return [total, total - parseFloat(el.dataset.target)]
@@ -348,16 +372,24 @@ function DonutRow() {
         delay: stagger(150),
         ease: EASE.out,
       })
-      animate(el.querySelectorAll('.line-chart-dot'), {
+      
+      dotAnim = animate(el.querySelectorAll('.line-chart-dot'), {
         r: [0, 4.5],
         duration: 400,
         delay: stagger(100),
         ease: 'outExpo',
       })
+      
       io.unobserve(el)
     }, { threshold: 0.2 })
+    
     io.observe(el)
-    return () => io.disconnect()
+    
+    return () => {
+      io.disconnect()
+      if (dashAnim && dashAnim.revert) dashAnim.revert()
+      if (dotAnim && dotAnim.revert) dotAnim.revert()
+    }
   }, [])
 
   return (
