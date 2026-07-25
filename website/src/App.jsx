@@ -24,7 +24,7 @@ import { useSectionReveal } from './hooks/useSectionReveal'
 import { useLenisScroll } from './hooks/useLenisScroll'
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(true)
+  const [showIntro, setShowIntro] = useState(false)
   const [cmdPaletteOpen, setCmdPaletteOpen] = useState(false)
   const [neuralMapOpen, setNeuralMapOpen] = useState(false)
   const [surgeMode, setSurgeMode] = useState(false)

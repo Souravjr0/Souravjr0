@@ -361,12 +361,14 @@ body::before {
 /* Unified scroll entrance for every section. Hidden state is gated behind
    html.has-js so the page stays fully visible if JS never runs. */
 .section-container {
+  opacity: 1;
+  transform: none;
   transition: opacity var(--dur-base) var(--ease-out),
     transform var(--dur-base) var(--ease-out);
 }
 html.has-js .section-container:not(.in-view) {
-  opacity: 0;
-  transform: translateY(42px);
+  opacity: 1;
+  transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
   html.has-js .section-container:not(.in-view) {

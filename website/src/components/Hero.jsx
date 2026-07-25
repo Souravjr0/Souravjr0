@@ -22,8 +22,7 @@ class CanvasErrorBoundary extends Component {
   }
 }
 
-// Three.js is ~690KB — load it after first paint so the hero copy is readable immediately.
-const HeroScene = lazy(() => import('./three/HeroScene'))
+import HeroScene from './three/HeroScene'
 
 function MagneticLink({ href, children, className = '' }) {
   const ref = useMagneticEffect()
