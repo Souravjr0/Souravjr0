@@ -5,7 +5,7 @@ import { EASE, DUR } from '../motion'
 
 export default function IntroAnimation({ onComplete }) {
   const [percent, setPercent] = useState(0)
-  const [statusText, setStatusText] = useState('INITIALIZING NEURAL PIPELINE...')
+  const [statusText, setStatusText] = useState('INITIALIZING NEURAL FIELD')
   const reducedMotion = usePrefersReducedMotion()
   const svgRef = useRef(null)
 
@@ -17,11 +17,11 @@ export default function IntroAnimation({ onComplete }) {
 
     // 1. Asset & Module verification simulation
     const statusLogs = [
-      'INITIALIZING NEURAL PIPELINE...',
-      'LOADING THREE.JS SHADERS...',
-      'INGESTING DATA MODELS...',
-      'VERIFYING MLOPS TELEMETRY...',
-      'SYSTEM ONLINE // SIGNAL STABLE',
+      'INITIALIZING NEURAL FIELD',
+      'LOADING EXPERIENCE MODULES',
+      'CALIBRATING SIGNAL PATHS',
+      'VERIFYING TELEMETRY',
+      'SIGNAL ACQUIRED',
     ]
 
     const counter = { val: 0 }
@@ -107,19 +107,19 @@ export default function IntroAnimation({ onComplete }) {
           <path
             d="M 50,10 L 90,30 L 90,70 L 50,90 L 10,70 L 10,30 Z"
             fill="none"
-            stroke="#ff2a5f"
+            stroke="#FF3B73"
             strokeWidth="3"
           />
           <path
             d="M 50,25 L 75,38 L 75,62 L 50,75 L 25,62 L 25,38 Z"
             fill="none"
-            stroke="#00f0ff"
+            stroke="#5BE7E7"
             strokeWidth="2"
           />
           <path
             d="M 50,40 L 60,46 L 60,54 L 50,60 L 40,54 L 40,46 Z"
             fill="none"
-            stroke="#ffd166"
+            stroke="#FFD166"
             strokeWidth="2"
           />
         </svg>

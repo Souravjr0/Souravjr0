@@ -12,7 +12,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           three: ['three'],
-          gsap: ['gsap'],
           react: ['react', 'react-dom'],
         },
       },

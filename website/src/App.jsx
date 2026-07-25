@@ -78,7 +78,7 @@ export default function App() {
       />
       <BackgroundShapes />
       <main>
-        <Hero />
+        <Hero introActive={showIntro} />
         <Marquee />
         <About />
         <WorkflowPipeline />

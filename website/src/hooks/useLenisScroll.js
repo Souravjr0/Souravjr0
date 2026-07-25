@@ -1,19 +1,17 @@
 import { useEffect, useRef } from 'react'
 import Lenis from 'lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export function useLenisScroll() {
   const lenisRef = useRef(null)
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: prefersReduced ? 0 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
-      smoothWheel: true,
+      smoothWheel: !prefersReduced,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
       infinite: false,
@@ -21,17 +19,30 @@ export function useLenisScroll() {
 
     lenisRef.current = lenis
 
-    // Connect Lenis to GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update)
+    // Own rAF loop (no GSAP ticker). Pauses while the tab is hidden.
+    let rafId = null
+    const raf = (time) => {
+      lenis.raf(time)
+      rafId = requestAnimationFrame(raf)
+    }
+    rafId = requestAnimationFrame(raf)
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
-    gsap.ticker.lagSmoothing(0)
+    const onVisibility = () => {
+      if (document.hidden) {
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId)
+          rafId = null
+        }
+      } else if (rafId === null) {
+        rafId = requestAnimationFrame(raf)
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
+      document.removeEventListener('visibilitychange', onVisibility)
+      if (rafId !== null) cancelAnimationFrame(rafId)
       lenis.destroy()
-      gsap.ticker.lagSmoothing()
     }
   }, [])
 

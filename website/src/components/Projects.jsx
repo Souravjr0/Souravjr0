@@ -50,7 +50,7 @@ export default function Projects() {
 
       <div className="projects-grid">
         {PROJECTS.map((proj) => (
-          <div key={proj.id} className="project-card" style={{ background: proj.gradient }}>
+          <div key={proj.id} className="project-card" style={{ '--accent': proj.accentColor }}>
             <ProjectMotif id={proj.id} />
             <span className="project-tag">{proj.tag}</span>
             <h3 className="project-title">{proj.title}</h3>
