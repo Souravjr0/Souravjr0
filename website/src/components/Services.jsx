@@ -13,7 +13,7 @@ export default function Services() {
 
       <div className="services-grid">
         {SERVICES.map((s) => (
-          <div key={s.id} className="service-card" style={{ background: s.gradient }}>
+          <div key={s.id} className="service-card" style={{ '--accent': s.accentColor }}>
             <div className="service-num">{s.id} // CAPABILITY</div>
             <h3 className="service-title">{s.title}</h3>
             <p className="service-desc">{s.description}</p>

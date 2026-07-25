@@ -1,41 +1,98 @@
 import { useEffect, useRef, useState } from 'react'
 import { METHODOLOGY } from '../data/portfolio'
-import { animate } from 'animejs'
+import { animate, stagger } from 'animejs'
 import { EASE, DUR } from '../motion'
 
 export default function WorkflowPipeline() {
   const [activeStep, setActiveStep] = useState(0)
   const containerRef = useRef(null)
+  const lineRef = useRef(null)
+  const dataPacketRef = useRef(null)
+  const packetsSent = useRef(false)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const el = containerRef.current
+    if (!el) return
+    let lineAnim, cardsAnim, packetAnim;
+
+    const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          // Sequential step activation
-          animate('.pipeline-card', {
-            opacity: [0.3, 1],
-            translateY: [20, 0],
-            duration: DUR.base,
-            delay: (el, i) => i * 200,
+        if (!entry.isIntersecting) return
+
+        // Draw pipeline connector line
+        const line = lineRef.current
+        if (line) {
+          const len = line.getTotalLength()
+          line.style.strokeDasharray = len
+          line.style.strokeDashoffset = len
+          lineAnim = animate(line, {
+            strokeDashoffset: [len, 0],
+            duration: 1200,
             ease: EASE.out,
           })
-          observer.disconnect()
         }
+
+        // Sequential step activation
+        cardsAnim = animate('.pipeline-card', {
+          opacity: [0.3, 1],
+          translateY: [16, 0],
+          duration: DUR.base,
+          delay: stagger(180),
+          ease: EASE.out,
+        })
+
+        // Data packets travelling along the connector line
+        if (!packetsSent.current && dataPacketRef.current) {
+          packetsSent.current = true
+          packetAnim = animate('.pipeline-data-packet', {
+            left: ['0%', '100%'],
+            opacity: [0, 1, 1, 0],
+            duration: 3000,
+            delay: stagger(700),
+            loop: true,
+            ease: EASE.inOut,
+          })
+        }
+
+        io.unobserve(el)
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     )
-    if (containerRef.current) observer.observe(containerRef.current)
-    return () => observer.disconnect()
+    io.observe(el)
+    
+    return () => {
+      io.disconnect()
+      if (lineAnim && lineAnim.revert) lineAnim.revert()
+      if (cardsAnim && cardsAnim.revert) cardsAnim.revert()
+      if (packetAnim && packetAnim.revert) packetAnim.revert()
+    }
   }, [])
 
   return (
     <section id="workflow" ref={containerRef} className="section-container">
       <div className="section-header">
-        <div className="section-kicker">🔄 Methodology &amp; Engineering</div>
+        <div className="section-kicker">02 // Pipeline Architecture</div>
         <h2 className="section-title">How Projects Come To Life</h2>
-        <p className="section-subtitle">
-          From raw data exploration to production ML pipelines and reactive full-stack web applications.
+        <p className="section-subtitle" style={{ marginTop: '14px' }}>
+          From raw data exploration to production ML pipelines and reactive full-stack applications.
         </p>
+      </div>
+
+      <div className="pipeline-connector" aria-hidden="true">
+        <svg viewBox="0 0 300 8" className="pipeline-svg-line">
+          <line
+            ref={lineRef}
+            x1="0" y1="4" x2="300" y2="4"
+            stroke="var(--smoke)"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+        <div className="pipeline-data-packets" ref={dataPacketRef}>
+          {[0, 1, 2, 3].map((i) => (
+            <span key={i} className="pipeline-data-packet" style={{ backgroundColor: 'var(--signal-pink)' }} />
+          ))}
+        </div>
       </div>
 
       <div className="pipeline-grid">
@@ -47,8 +104,8 @@ export default function WorkflowPipeline() {
               className={`pipeline-card ${isActive ? 'active-pipeline' : ''}`}
               onMouseEnter={() => setActiveStep(idx)}
             >
-              <div className="pipeline-step">
-                <span>{item.step}</span>
+              <div className="pipeline-step-row">
+                <span className="pipeline-step-num">{item.step}</span>
                 <span className="pipeline-icon">{item.icon}</span>
               </div>
               <div className="pipeline-phase">{item.phase}</div>
