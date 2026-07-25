@@ -111,9 +111,8 @@ export const SERVICES = [
     description:
       'End-to-end analytics pipelines, real-time dashboards, and reporting automation that surface actionable insights for executive decisions.',
     checklist: ['Automated BI Dashboards', 'Statistical EDA & Cohort Analysis', 'Custom SQL ETL Pipelines'],
-    tags: ['Python', 'SQL', 'Tableau', 'Pandas'],
-    gradient: 'linear-gradient(135deg, rgba(255, 59, 115, 0.12), rgba(91, 231, 231, 0.05))',
-    accentColor: '#FF3B73',
+    gradient: 'linear-gradient(135deg, rgba(232, 99, 122, 0.12), rgba(103, 212, 212, 0.05))',
+    accentColor: '#E8637A',
   },
   {
     id: '02',
@@ -121,9 +120,8 @@ export const SERVICES = [
     description:
       'Predictive analytics, NLP agents, and computer vision algorithms trained, evaluated, and deployed with robust monitoring pipelines.',
     checklist: ['Predictive Classification & Regression', 'LLM Guardrails & Prompt Safety', 'Model Evaluation & Optimization'],
-    tags: ['PyTorch', 'TensorFlow', 'Scikit-Learn', 'MLOps'],
-    gradient: 'linear-gradient(135deg, rgba(91, 231, 231, 0.12), rgba(255, 209, 102, 0.05))',
-    accentColor: '#5BE7E7',
+    gradient: 'linear-gradient(135deg, rgba(103, 212, 212, 0.12), rgba(240, 199, 94, 0.05))',
+    accentColor: '#67D4D4',
   },
   {
     id: '03',
@@ -131,9 +129,8 @@ export const SERVICES = [
     description:
       'Full-stack React applications, portfolio experiences, and product landing pages powered by Three.js WebGL, Anime.js v4, and smooth scroll.',
     checklist: ['High-Performance React Frameworks', '3D WebGL Canvas & Particle FX', 'Kinetic Typography & Smooth Scroll'],
-    tags: ['React', 'Three.js', 'Anime.js', 'GSAP'],
-    gradient: 'linear-gradient(135deg, rgba(255, 209, 102, 0.12), rgba(255, 59, 115, 0.05))',
-    accentColor: '#FFD166',
+    gradient: 'linear-gradient(135deg, rgba(240, 199, 94, 0.12), rgba(232, 99, 122, 0.05))',
+    accentColor: '#F0C75E',
   },
   {
     id: '04',
@@ -141,9 +138,8 @@ export const SERVICES = [
     description:
       'High-throughput REST/GraphQL APIs, microservice containers, and cloud deployments built for reliability and zero-downtime scaling.',
     checklist: ['FastAPI & Node.js Backend', 'Docker Containerization', 'AWS Cloud Infrastructure'],
-    tags: ['FastAPI', 'Docker', 'AWS', 'REST APIs'],
-    gradient: 'linear-gradient(135deg, rgba(255, 59, 115, 0.10), rgba(91, 231, 231, 0.10))',
-    accentColor: '#FF3B73',
+    gradient: 'linear-gradient(135deg, rgba(232, 99, 122, 0.10), rgba(103, 212, 212, 0.10))',
+    accentColor: '#E8637A',
   },
 ]
 
@@ -158,9 +154,8 @@ export const PROJECTS = [
     highlights: ['99.2% Threat Detection Rate', 'Automated Adversary Benchmarks', 'Zero-Latency Inspection Hook'],
     stack: ['Python', 'AI Safety', 'LLM Benchmarks', 'FastAPI'],
     url: 'https://github.com/souravjr0/Claude-guardian',
-    demoUrl: 'https://github.com/souravjr0/Claude-guardian',
-    gradient: 'linear-gradient(135deg, rgba(255, 59, 115, 0.15), rgba(91, 231, 231, 0.08))',
-    accentColor: '#FF3B73',
+    gradient: 'linear-gradient(135deg, rgba(232, 99, 122, 0.15), rgba(103, 212, 212, 0.08))',
+    accentColor: '#E8637A',
   },
   {
     id: 'zunes-wallet',
@@ -172,9 +167,8 @@ export const PROJECTS = [
     highlights: ['Multi-Chain Portfolio View', 'Sub-Second Gas Fee Estimation', 'Responsive Glassmorphism UI'],
     stack: ['Ethereum', 'Web3.js', 'React', 'UI Design'],
     url: 'https://github.com/souravjr0/Zunes-wallet',
-    demoUrl: 'https://github.com/souravjr0/Zunes-wallet',
-    gradient: 'linear-gradient(135deg, rgba(91, 231, 231, 0.15), rgba(255, 209, 102, 0.08))',
-    accentColor: '#5BE7E7',
+    gradient: 'linear-gradient(135deg, rgba(103, 212, 212, 0.15), rgba(240, 199, 94, 0.08))',
+    accentColor: '#67D4D4',
   },
   {
     id: 'cluely',
@@ -186,9 +180,8 @@ export const PROJECTS = [
     highlights: ['Real-time Sentiment Analysis', 'Custom Technical Question Banks', 'Instant Score Breakdown'],
     stack: ['Python', 'NLP', 'React', 'Tailwind'],
     url: 'https://github.com/souravjr0/Cluely',
-    demoUrl: 'https://github.com/souravjr0/Cluely',
-    gradient: 'linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(255, 59, 115, 0.08))',
-    accentColor: '#FFD166',
+    gradient: 'linear-gradient(135deg, rgba(240, 199, 94, 0.15), rgba(232, 99, 122, 0.08))',
+    accentColor: '#F0C75E',
   },
   {
     id: 'habit-tracker',
@@ -200,9 +193,8 @@ export const PROJECTS = [
     highlights: ['100% Local Privacy', 'GitHub-Style Activity Heatmap', 'Offline-First PWA Support'],
     stack: ['JavaScript', 'LocalStorage', 'CSS Grid', 'PWA'],
     url: 'https://github.com/souravjr0/Habit-Tracker',
-    demoUrl: 'https://github.com/souravjr0/Habit-Tracker',
-    gradient: 'linear-gradient(135deg, rgba(255, 59, 115, 0.10), rgba(91, 231, 231, 0.10))',
-    accentColor: '#FF3B73',
+    gradient: 'linear-gradient(135deg, rgba(232, 99, 122, 0.10), rgba(103, 212, 212, 0.10))',
+    accentColor: '#E8637A',
   },
 ]
 

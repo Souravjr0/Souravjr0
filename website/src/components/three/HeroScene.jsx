@@ -31,14 +31,14 @@ function NeuralConstellation({ count = 160, maxDist = 1.4, visibleRef }) {
       vel[i * 3 + 1] = (Math.random() - 0.5) * 0.003
       vel[i * 3 + 2] = (Math.random() - 0.5) * 0.003
 
-      // Signal palette: violet dominant (intelligence), pink + cyan accents
+      // Signal palette: gentle lavender dominant, soft rose + calm teal accents
       const t = Math.random()
       if (t < 0.5) {
-        colors[i * 3] = 0.54; colors[i * 3 + 1] = 0.36; colors[i * 3 + 2] = 1.0 // signal-violet
+        colors[i * 3] = 0.61; colors[i * 3 + 1] = 0.54; colors[i * 3 + 2] = 0.98 // signal-lavender (#9B8AFB)
       } else if (t < 0.8) {
-        colors[i * 3] = 1.0; colors[i * 3 + 1] = 0.23; colors[i * 3 + 2] = 0.45 // signal-pink
+        colors[i * 3] = 0.91; colors[i * 3 + 1] = 0.39; colors[i * 3 + 2] = 0.48 // signal-rose (#E8637A)
       } else {
-        colors[i * 3] = 0.36; colors[i * 3 + 1] = 0.91; colors[i * 3 + 2] = 0.91 // signal-cyan
+        colors[i * 3] = 0.40; colors[i * 3 + 1] = 0.83; colors[i * 3 + 2] = 0.83 // signal-teal (#67D4D4)
       }
     }
 
@@ -50,7 +50,7 @@ function NeuralConstellation({ count = 160, maxDist = 1.4, visibleRef }) {
       size: 0.065,
       vertexColors: true,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending,
       sizeAttenuation: true,
       depthWrite: false,
@@ -69,9 +69,9 @@ function NeuralConstellation({ count = 160, maxDist = 1.4, visibleRef }) {
   }, [count])
 
   const lineMat = useMemo(() => new THREE.LineBasicMaterial({
-    color: 0x8A5CFF,
+    color: 0x9B8AFB,
     transparent: true,
-    opacity: 0.14,
+    opacity: 0.12,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   }), [])

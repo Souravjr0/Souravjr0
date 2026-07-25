@@ -25,7 +25,7 @@ export default function AnimationViewfinder() {
 animate('.grid-node', {
   scale: [1, 2.2, 1],
   opacity: [0.4, 1, 0.4],
-  backgroundColor: ['#FF3B73', '#5BE7E7', '#FFD166'],
+  backgroundColor: ['#E8637A', '#67D4D4', '#F0C75E'],
   delay: stagger(45, { from: 'center', grid: [8, 8] }),
   duration: 1200 / speed,
   ease: 'inOutSine',
@@ -34,7 +34,7 @@ animate('.grid-node', {
     'shape-morph': `// Anime.js v4 SVG Path Morphing & Dash Offset
 animate('.morph-path', {
   strokeDashoffset: [1000, 0],
-  stroke: ['#FF3B73', '#5BE7E7', '#FFD166'],
+  stroke: ['#E8637A', '#67D4D4', '#F0C75E'],
   duration: 1600 / speed,
   ease: 'inOutExpo',
   loop: true
@@ -251,9 +251,9 @@ animate('.spring-tracer', {
           {activePreset === 'shape-morph' && (
             <div className="viewfinder-svg-stage">
               <svg width="220" height="220" viewBox="0 0 100 100">
-                <path d="M 50,10 L 90,30 L 90,70 L 50,90 L 10,70 L 10,30 Z" fill="none" stroke="#FF3B73" strokeWidth="2.5" />
-                <path d="M 50,20 L 80,35 L 80,65 L 50,80 L 20,65 L 20,35 Z" fill="none" stroke="#5BE7E7" strokeWidth="2" />
-                <path d="M 50,30 L 70,40 L 70,60 L 50,70 L 30,60 L 30,40 Z" fill="none" stroke="#FFD166" strokeWidth="2" />
+                <path d="M 50,10 L 90,30 L 90,70 L 50,90 L 10,70 L 10,30 Z" fill="none" stroke="#E8637A" strokeWidth="2.5" />
+                <path d="M 50,20 L 80,35 L 80,65 L 50,80 L 20,65 L 20,35 Z" fill="none" stroke="#67D4D4" strokeWidth="2" />
+                <path d="M 50,30 L 70,40 L 70,60 L 50,70 L 30,60 L 30,40 Z" fill="none" stroke="#F0C75E" strokeWidth="2" />
               </svg>
             </div>
           )}

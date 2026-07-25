@@ -110,9 +110,9 @@ export default function IntroAnimation({ onComplete }) {
 
       <div className="intro-content">
         <svg ref={svgRef} width="110" height="110" viewBox="0 0 100 100" className="intro-svg">
-          <path d="M 50,10 L 90,30 L 90,70 L 50,90 L 10,70 L 10,30 Z" fill="none" stroke="#FF3B73" strokeWidth="3" />
-          <path d="M 50,25 L 75,38 L 75,62 L 50,75 L 25,62 L 25,38 Z" fill="none" stroke="#5BE7E7" strokeWidth="2" />
-          <path d="M 50,40 L 60,46 L 60,54 L 50,60 L 40,54 L 40,46 Z" fill="none" stroke="#FFD166" strokeWidth="2" />
+          <path d="M 50,10 L 90,30 L 90,70 L 50,90 L 10,70 L 10,30 Z" fill="none" stroke="#E8637A" strokeWidth="3" />
+          <path d="M 50,25 L 75,38 L 75,62 L 50,75 L 25,62 L 25,38 Z" fill="none" stroke="#67D4D4" strokeWidth="2" />
+          <path d="M 50,40 L 60,46 L 60,54 L 50,60 L 40,54 L 40,46 Z" fill="none" stroke="#F0C75E" strokeWidth="2" />
         </svg>
 
         <div className="intro-title">

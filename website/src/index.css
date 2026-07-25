@@ -7,46 +7,46 @@
 
 :root {
   /* ——— base surfaces ——— */
-  --void: #07070B;
-  --ink: #0E0D16;
-  --smoke: #181524;
-  --mist: #B9B6C9;
-  --paper: #F4F1FA;
+  --void: #0C1220;
+  --ink: #111827;
+  --smoke: #1E293B;
+  --mist: #CBD5E1;
+  --paper: #F1F5F9;
 
   /* ——— signal accents ——— */
-  --signal-pink: #FF3B73;
-  --signal-violet: #8A5CFF;
-  --signal-cyan: #5BE7E7;
-  --signal-amber: #FFD166;
+  --signal-pink: #E8637A;
+  --signal-violet: #9B8AFB;
+  --signal-cyan: #67D4D4;
+  --signal-amber: #F0C75E;
 
   /* ——— semantic aliases (backward compat) ——— */
   --bg: var(--void);
   --bg-2: var(--ink);
   --bg-3: var(--smoke);
-  --bg-card: rgba(14, 13, 22, 0.75);
-  --bg-card-hover: rgba(24, 21, 36, 0.9);
+  --bg-card: rgba(17, 24, 39, 0.75);
+  --bg-card-hover: rgba(30, 41, 59, 0.9);
 
   --text: var(--paper);
   --text-dim: var(--mist);
-  --text-muted: #8A86A0;
+  --text-muted: #94A3B8;
 
   /* Accents (kept as aliases so existing components don't break) */
   --coral: var(--signal-pink);
-  --coral-dim: rgba(255, 59, 115, 0.12);
-  --coral-glow: rgba(255, 59, 115, 0.35);
+  --coral-dim: rgba(232, 99, 122, 0.12);
+  --coral-glow: rgba(232, 99, 122, 0.2);
 
   --cyan: var(--signal-cyan);
-  --cyan-dim: rgba(91, 231, 231, 0.12);
-  --cyan-glow: rgba(91, 231, 231, 0.3);
+  --cyan-dim: rgba(103, 212, 212, 0.12);
+  --cyan-glow: rgba(103, 212, 212, 0.15);
 
   --gold: var(--signal-amber);
-  --gold-dim: rgba(255, 209, 102, 0.12);
+  --gold-dim: rgba(240, 199, 94, 0.12);
   --purple: var(--signal-violet);
-  --purple-dim: rgba(138, 92, 255, 0.12);
+  --purple-dim: rgba(155, 138, 251, 0.12);
 
-  --border: rgba(255, 59, 115, 0.14);
-  --border-cyan: rgba(91, 231, 231, 0.18);
-  --border-hi: rgba(255, 59, 115, 0.3);
+  --border: rgba(232, 99, 122, 0.1);
+  --border-cyan: rgba(103, 212, 212, 0.14);
+  --border-hi: rgba(232, 99, 122, 0.2);
 
   --radius-sm: 6px;
   --radius: 12px;

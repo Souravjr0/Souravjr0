@@ -25,12 +25,12 @@ export default function CosmicMatrixStudio() {
   }, [])
 
   const planets = [
-    { id: 'mercury', name: 'Mercury', size: 14, distance: 75, speed: 2.2, color: '#FFD166' },
-    { id: 'venus', name: 'Venus', size: 20, distance: 110, speed: 1.6, color: '#ff758c' },
-    { id: 'earth', name: 'Earth', size: 24, distance: 155, speed: 1.2, color: '#5BE7E7' },
-    { id: 'mars', name: 'Mars', size: 18, distance: 195, speed: 0.9, color: '#FF3B73' },
-    { id: 'jupiter', name: 'Jupiter', size: 34, distance: 245, speed: 0.6, color: '#8A5CFF' },
-    { id: 'saturn', name: 'Saturn', size: 28, distance: 295, speed: 0.4, color: '#00ff9d' },
+    { id: 'mercury', name: 'Mercury', size: 14, distance: 75, speed: 2.2, color: '#F0C75E' },
+    { id: 'venus', name: 'Venus', size: 20, distance: 110, speed: 1.6, color: '#E88C9D' },
+    { id: 'earth', name: 'Earth', size: 24, distance: 155, speed: 1.2, color: '#67D4D4' },
+    { id: 'mars', name: 'Mars', size: 18, distance: 195, speed: 0.9, color: '#E8637A' },
+    { id: 'jupiter', name: 'Jupiter', size: 34, distance: 245, speed: 0.6, color: '#9B8AFB' },
+    { id: 'saturn', name: 'Saturn', size: 28, distance: 295, speed: 0.4, color: '#52D6A4' },
   ]
 
   // Quantum Pulse Shockwave Handler
@@ -239,8 +239,8 @@ export default function CosmicMatrixStudio() {
               <svg className="lava-svg-container" viewBox="0 0 400 300">
                 <defs>
                   <radialGradient id="lavaGrad" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#FF3B73" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#FFD166" stopOpacity="0.2" />
+                    <stop offset="0%" stopColor="#E8637A" stopOpacity="0.75" />
+                    <stop offset="100%" stopColor="#F0C75E" stopOpacity="0.2" />
                   </radialGradient>
                 </defs>
                 <path

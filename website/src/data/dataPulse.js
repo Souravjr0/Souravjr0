@@ -3,19 +3,19 @@
 // Data is grounded in real portfolio numbers so nothing is fabricated.
 
 export const DATA_PULSE_METRICS = [
-  { value: 35, suffix: '%', label: 'Reporting Reduction', sub: 'Manual BI workflows automated', color: '#FF3B73', status: '→ Trending Down, Validated Q3' },
-  { value: 40, suffix: '%', label: 'SEO Ranking Lift', sub: 'Data-driven content strategy deployed', color: '#5BE7E7', status: '→ Organic Growth Sustained' },
-  { value: 22, suffix: '%', label: 'Revenue Influence', sub: 'Predictive pricing optimization live', color: '#FFD166', status: '→ Attribution: ML Models' },
-  { value: 99, suffix: '.9%', label: 'Model Uptime', sub: 'Production MLOps telemetry', color: '#8A5CFF', status: '→ SLA Exceeded by +2.4%' },
+  { value: 35, suffix: '%', label: 'Reporting Reduction', sub: 'Manual BI workflows automated', color: '#E8637A', status: '→ Trending Down, Validated Q3' },
+  { value: 40, suffix: '%', label: 'SEO Ranking Lift', sub: 'Data-driven content strategy deployed', color: '#67D4D4', status: '→ Organic Growth Sustained' },
+  { value: 22, suffix: '%', label: 'Revenue Influence', sub: 'Predictive pricing optimization live', color: '#F0C75E', status: '→ Attribution: ML Models' },
+  { value: 99, suffix: '.9%', label: 'Model Uptime', sub: 'Production MLOps telemetry', color: '#9B8AFB', status: '→ SLA Exceeded by +2.4%' },
 ]
 
 export const DATA_PULSE_CHARTS = {
   bars: [
-    { label: 'Python', pct: 96, color: '#FF3B73' },
-    { label: 'SQL', pct: 92, color: '#5BE7E7' },
-    { label: 'Pandas', pct: 94, color: '#FFD166' },
-    { label: 'React', pct: 88, color: '#8A5CFF' },
-    { label: 'PyTorch', pct: 88, color: '#FF3B73' },
+    { label: 'Python', pct: 96, color: '#E8637A' },
+    { label: 'SQL', pct: 92, color: '#67D4D4' },
+    { label: 'Pandas', pct: 94, color: '#F0C75E' },
+    { label: 'React', pct: 88, color: '#9B8AFB' },
+    { label: 'PyTorch', pct: 88, color: '#E8637A' },
   ],
   line: [
     { x: 0, y: 10 },
