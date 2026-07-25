@@ -74,13 +74,17 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  const handleIntroComplete = useCallback(() => {
+    setShowIntro(false)
+  }, [])
+
   const handleSelectSection = (id) => {
     if (scrollTo) scrollTo(`#${id}`)
   }
 
   return (
     <div className={`app-root ${surgeMode ? 'surge-active' : ''}`}>
-      {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+      {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
       <Cursor />
       <Navbar
         scrollTo={scrollTo}

@@ -9,10 +9,15 @@ export default function IntroAnimation({ onComplete }) {
   const percentRef = useRef(null)
   const subtitleRef = useRef(null)
   const fillRef = useRef(null)
+  const onCompleteRef = useRef(onComplete)
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   useEffect(() => {
     if (reducedMotion) {
-      if (onComplete) onComplete()
+      if (onCompleteRef.current) onCompleteRef.current()
       return
     }
 
@@ -80,7 +85,7 @@ export default function IntroAnimation({ onComplete }) {
         delay: stagger(70),
         ease: EASE.inOut,
         onComplete: () => {
-          if (onComplete) onComplete()
+          if (onCompleteRef.current) onCompleteRef.current()
         },
       })
       animations.push(curtainAnim)
@@ -88,13 +93,8 @@ export default function IntroAnimation({ onComplete }) {
 
     return () => {
       clearTimeout(timer)
-      animations.forEach(anim => {
-        if (anim && typeof anim.revert === 'function') {
-          anim.revert()
-        }
-      })
     }
-  }, [onComplete, reducedMotion])
+  }, [reducedMotion])
 
   if (reducedMotion) return null
 
