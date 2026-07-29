@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import IntroAnimation from './components/IntroAnimation'
 import Navbar from './components/Navbar'
 import Cursor from './components/Cursor'

@@ -111,6 +111,7 @@ export const SERVICES = [
     description:
       'End-to-end analytics pipelines, real-time dashboards, and reporting automation that surface actionable insights for executive decisions.',
     checklist: ['Automated BI Dashboards', 'Statistical EDA & Cohort Analysis', 'Custom SQL ETL Pipelines'],
+    tags: ['Python', 'SQL', 'Tableau', 'Pandas'],
     gradient: 'linear-gradient(135deg, rgba(232, 99, 122, 0.12), rgba(103, 212, 212, 0.05))',
     accentColor: '#E8637A',
   },
@@ -120,6 +121,7 @@ export const SERVICES = [
     description:
       'Predictive analytics, NLP agents, and computer vision algorithms trained, evaluated, and deployed with robust monitoring pipelines.',
     checklist: ['Predictive Classification & Regression', 'LLM Guardrails & Prompt Safety', 'Model Evaluation & Optimization'],
+    tags: ['PyTorch', 'TensorFlow', 'Scikit-Learn', 'MLOps'],
     gradient: 'linear-gradient(135deg, rgba(103, 212, 212, 0.12), rgba(240, 199, 94, 0.05))',
     accentColor: '#67D4D4',
   },
@@ -129,6 +131,7 @@ export const SERVICES = [
     description:
       'Full-stack React applications, portfolio experiences, and product landing pages powered by Three.js WebGL, Anime.js v4, and smooth scroll.',
     checklist: ['High-Performance React Frameworks', '3D WebGL Canvas & Particle FX', 'Kinetic Typography & Smooth Scroll'],
+    tags: ['React', 'Three.js', 'Anime.js', 'Vite'],
     gradient: 'linear-gradient(135deg, rgba(240, 199, 94, 0.12), rgba(232, 99, 122, 0.05))',
     accentColor: '#F0C75E',
   },
@@ -138,6 +141,7 @@ export const SERVICES = [
     description:
       'High-throughput REST/GraphQL APIs, microservice containers, and cloud deployments built for reliability and zero-downtime scaling.',
     checklist: ['FastAPI & Node.js Backend', 'Docker Containerization', 'AWS Cloud Infrastructure'],
+    tags: ['FastAPI', 'Docker', 'AWS', 'REST APIs'],
     gradient: 'linear-gradient(135deg, rgba(232, 99, 122, 0.10), rgba(103, 212, 212, 0.10))',
     accentColor: '#E8637A',
   },
