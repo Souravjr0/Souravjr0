@@ -438,7 +438,7 @@ html.has-js .section-container:not(.in-view) {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--coral), #e01e4f);
+  background: linear-gradient(135deg, var(--signal-pink), var(--signal-violet));
   color: #ffffff;
   box-shadow: 0 0 25px var(--coral-glow);
 }
@@ -475,8 +475,8 @@ html.has-js .section-container:not(.in-view) {
 
 .navbar-scrolled .nav-inner {
   padding: 8px 20px;
-  background: rgba(10, 10, 20, 0.92);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px var(--coral-dim);
+  background: var(--bg-card-hover);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25), 0 0 20px var(--coral-dim);
 }
 
 .nav-inner {
@@ -484,7 +484,7 @@ html.has-js .section-container:not(.in-view) {
   align-items: center;
   justify-content: space-between;
   padding: 12px 24px;
-  background: rgba(15, 15, 29, 0.85);
+  background: var(--bg-card);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
@@ -583,7 +583,7 @@ html.has-js .section-container:not(.in-view) {
 .mobile-menu-overlay {
   position: fixed;
   inset: 0;
-  background: #080812;
+  background: var(--void);
   z-index: 10000;
   padding: 30px 24px;
   display: flex;
@@ -642,7 +642,7 @@ html.has-js .section-container:not(.in-view) {
   gap: 10px;
   padding: 6px 16px 6px 10px;
   border-radius: 99px;
-  background: rgba(14, 13, 22, 0.9);
+  background: var(--bg-card);
   border: 1px solid rgba(255, 59, 115, 0.2);
   font-size: 0.82rem;
   font-weight: 500;
@@ -678,7 +678,7 @@ html.has-js .section-container:not(.in-view) {
   padding: 6px 16px;
   border: 1px solid var(--smoke);
   border-radius: 99px;
-  background: rgba(7, 7, 11, 0.7);
+  background: var(--bg-card);
   backdrop-filter: blur(4px);
   white-space: nowrap;
 }
@@ -752,7 +752,7 @@ html.has-js .section-container:not(.in-view) {
 }
 
 .hero-badge-card {
-  background: rgba(14, 13, 22, 0.6);
+  background: var(--bg-card);
   border: 1px solid var(--smoke);
   backdrop-filter: blur(3px);
   padding: 14px 20px;
@@ -766,7 +766,7 @@ html.has-js .section-container:not(.in-view) {
 
 .hero-badge-card:hover {
   border-color: rgba(255, 59, 115, 0.25);
-  background: rgba(24, 21, 36, 0.8);
+  background: var(--bg-card-hover);
   box-shadow: 0 8px 28px rgba(138, 92, 255, 0.08);
 }
 
@@ -792,7 +792,7 @@ html.has-js .section-container:not(.in-view) {
 .marquee-container {
   overflow: hidden;
   white-space: nowrap;
-  background: rgba(15, 15, 29, 0.7);
+  background: var(--bg-card);
   border-y: 1px solid var(--border);
   padding: 18px 0;
   position: relative;
@@ -1370,7 +1370,7 @@ html.has-js .section-container:not(.in-view) {
 }
 
 .metric-module {
-  background: rgba(14, 13, 22, 0.6);
+  background: var(--bg-card);
   border: 1px solid var(--smoke);
   border-radius: var(--radius);
   padding: 24px 22px;
@@ -1497,7 +1497,7 @@ html.has-js .section-container:not(.in-view) {
 }
 
 .pipeline-card {
-  background: rgba(14, 13, 22, 0.6);
+  background: var(--bg-card);
   border: 1px solid var(--smoke);
   border-radius: var(--radius);
   padding: 26px 24px;
@@ -1508,7 +1508,7 @@ html.has-js .section-container:not(.in-view) {
 
 .pipeline-card.active-pipeline, .pipeline-card:hover {
   border-color: rgba(255, 59, 115, 0.2);
-  background: rgba(24, 21, 36, 0.7);
+  background: var(--bg-card-hover);
   opacity: 1;
 }
 
@@ -1803,7 +1803,7 @@ html.has-js .section-container:not(.in-view) {
 
 .project-card {
   --accent: var(--signal-pink);
-  background: rgba(14, 13, 22, 0.6);
+  background: var(--bg-card);
   border: 1px solid var(--smoke);
   border-radius: var(--radius);
   padding: 36px;
@@ -1827,7 +1827,7 @@ html.has-js .section-container:not(.in-view) {
 
 .project-card:hover {
   border-color: color-mix(in srgb, var(--accent) 35%, transparent);
-  background: rgba(24, 21, 36, 0.7);
+  background: var(--bg-card-hover);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
@@ -1888,7 +1888,7 @@ html.has-js .section-container:not(.in-view) {
   gap: 8px;
   margin-bottom: 24px;
   padding: 14px 18px;
-  background: rgba(12, 12, 24, 0.7);
+  background: var(--bg-card);
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
 }
@@ -1948,7 +1948,7 @@ html.has-js .section-container:not(.in-view) {
 }
 
 .skill-category-card {
-  background: rgba(14, 13, 22, 0.6);
+  background: var(--bg-card);
   border: 1px solid var(--smoke);
   border-radius: var(--radius);
   padding: 32px 28px;
@@ -2237,7 +2237,7 @@ html.has-js .section-container:not(.in-view) {
 
 /* ---- CONTACT SECTION ---- */
 .contact-card {
-  background: rgba(14, 13, 22, 0.75);
+  background: var(--bg-card);
   border: 1px solid var(--smoke);
   border-radius: var(--radius-lg);
   padding: 48px;
@@ -2337,7 +2337,7 @@ html.has-js .section-container:not(.in-view) {
 .form-input, .form-textarea {
   width: 100%;
   padding: 14px 18px;
-  background: rgba(12, 12, 24, 0.8);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text);
